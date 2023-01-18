@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import assignments.annotations.FullNameProcessorGeneratorAnnotation;
 import assignments.annotations.ListIteratorAnnotation;
@@ -15,14 +16,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LocalProcessor {
-    private StringBuilder processorName;
+    private String processorName;
     private Long period = 10_000_000_000_000L;
     private StringBuilder processorVersion = new StringBuilder();
     private Integer valueOfCheap;
     private Scanner informationScanner;
     private LinkedList<String> stringArrayList;
 
-    public LocalProcessor(StringBuilder processorName, Long period, StringBuilder processorVersion, Integer valueOfCheap,
+    public LocalProcessor(String processorName, Long period, StringBuilder processorVersion, Integer valueOfCheap,
                           Scanner informationScanner, LinkedList<String> stringArrayList) {
         this.processorName = processorName;
         this.period = period;
@@ -44,9 +45,8 @@ public class LocalProcessor {
 
     @FullNameProcessorGeneratorAnnotation
     public String fullNameProcessorGenerator(LinkedList<String> stringList) {
-        stringArrayList = new LinkedList<>(stringList);
-        stringArrayList.forEach(s -> processorName.append(s).append(" "));
-        return processorName.toString();
+        return stringList.stream().filter(Objects::nonNull).peek(s ->
+                processorVersion.append(s)).collect(Collectors.joining());
     }
 
     @ReadFullProcessorNameAnnotation
