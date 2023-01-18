@@ -2,7 +2,6 @@ package assignments;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,10 +20,10 @@ public class LocalProcessor {
     private StringBuilder processorVersion = new StringBuilder();
     private Integer valueOfCheap;
     private Scanner informationScanner;
-    private LinkedList<String> stringArrayList;
+    private List<String> stringArrayList;
 
     public LocalProcessor(String processorName, Long period, StringBuilder processorVersion, Integer valueOfCheap,
-                          Scanner informationScanner, LinkedList<String> stringArrayList) {
+                          Scanner informationScanner, List<String> stringArrayList) {
         this.processorName = processorName;
         this.period = period;
         this.processorVersion = processorVersion;
@@ -37,14 +36,14 @@ public class LocalProcessor {
     }
 
     @ListIteratorAnnotation
-    public void listIterator(LinkedList<String> stringList) {
+    public void listIterator(List<String> stringList) {
         stringList.stream().filter(Objects::nonNull)
                 .mapToInt(Objects::hashCode)
                 .forEach(System.out::println);
     }
 
     @FullNameProcessorGeneratorAnnotation
-    public String fullNameProcessorGenerator(LinkedList<String> stringList) {
+    public String fullNameProcessorGenerator(List<String> stringList) {
         return stringList.stream().filter(Objects::nonNull).peek(s ->
                 processorVersion.append(s)).collect(Collectors.joining());
     }
